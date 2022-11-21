@@ -1,4 +1,64 @@
-コミットA1変更２----------------
-コミットB2変更
-コミットB3
-コミットB4
+
+
+目的：Windows でハイパーバイザ(ハードウェアのみの利用、OSは使わない)で仮想化を実現
+
+●具体的にやったこと
+・WSL2(Windows Subsystem for Linux)をインストール
+	自動でHyper-Vが有効化
+	Ubuntuもインストールされる
+
+・Ubuntuのアカウント設定
+	User:Daisaku
+	Pass:maikeru7
+	
+・Ubuntuのアップデート
+
+・WindowsにDockerをインストール
+	Docker Desktop for Windows をダウンロード
+	https://docs.docker.com/desktop/install/windows-install/
+	
+	→確認
+	Power Shell
+	> docker ps
+	を打ち込むと下記が出力
+	CONTAINER ID   IMAGE     COMMAND   CREATED   STATUS    PORTS     NAMES
+
+・Docker Hubのアカウント作成
+
+	User:yheciix3kf3kf
+	Pass:?S8-Dmv0Hlke
+
+・Docker Desktop から Docker Hubアカウントにログインする
+
+	Linuxのコンソールで下記を打つ
+	docke login
+	username
+	password
+	を打ちDocker Hubと連携する、これでDocker HubからのPullが可能になった
+
+・試しにコンテナを生成
+
+docker run hello-world
+
+ローカルにイメージが無いのでdocker hubからPullしてコンテナを生成してくれる
+
+PowerShell
+docker run -d -p 80:80 docker/getting-started
+
+ブラウザで下記を開く
+http://localhost/
+
+これでコンテナ生成完了
+
+このコンテナにPythonイメージをダウンロードする
+PowerShell
+docker pull python:3.6
+docker images
+docker run -it --name pytest python:3.6 /bin/bash
+
+
+コンテナにエディタを入れてみる
+
+vi test.py
+test.py に print('Hello')
+
